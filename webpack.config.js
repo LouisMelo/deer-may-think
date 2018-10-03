@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // for webpack 4
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -18,21 +20,31 @@ module.exports = {
         loader: 'awesome-typescript-loader'
       },
       {
-        test: /\.css$/,
+        test: /\.(scss|css)$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: MiniCssExtractPlugin.loader
           },
           {
             loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader'
           }
         ]
+      },
+      {
+        test: /\.(png|jpeg|ico|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+        loader: 'file-loader'
       }
     ]
   },
   plugins: [
+    new MiniCssExtractPlugin('style.css'),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'public/index.html')
-    })
+      // favicon: path.join(__dirname, 'public/favicon.ico')
+    }),
+    new CleanWebpackPlugin(['dist'])
   ]
 };

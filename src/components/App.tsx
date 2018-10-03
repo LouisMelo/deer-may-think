@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import './App.css';
+
+require('./App.scss')
 
 interface AppProps {
   message: string,
@@ -10,6 +11,7 @@ export default function({ message }: AppProps ) {
   const Home = () => (
     <div>
       <h2>Home</h2>
+      <button className='button is-primary' >Bulma Button</button>
     </div>
   )
 
@@ -42,9 +44,9 @@ export default function({ message }: AppProps ) {
 
         <hr/>
 
-        <Route exact path='/' component={ Home } />
-        <Route path='/about' component={ About } />
-        <Route path='/topics' component={ Topics } />
+        <Route exact={true} path='/' component={Home} />
+        <Route path='/about' component={About} />
+        <Route path='/topics' component={Topics} />
       </div>
     </Router>
   );
